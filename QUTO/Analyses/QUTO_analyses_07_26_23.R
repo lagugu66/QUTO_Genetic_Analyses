@@ -7,25 +7,28 @@ library(poppr)
 library(hierfstat)
 library(PopGenReport)
 library(pegas)
-library(diveRsity)
 
-#####################
-#     Analyses      #
-#####################
+
+############################
+#     Load Data Files      #
+############################
 #load in genepop file as a genind object 
-QUTO_genind <- read.genepop("C:/Users/LAguiniga/Documents/QUTO/QUTO_allpop.gen",
+QUTO_genind <- read.genepop("QUTO/Data_Files/QUTO_allpop.gen",
                             ncode = 3)
 
 #allele frequency category lists 
 list_allele_cat<-c("global","glob_v_com","glob_com","glob_lowfr","glob_rare",
                    "reg_rare","loc_com_d1","loc_com_d2","loc_rare")
 
+#####################
+#     Analyses      #
+#####################
+
 #reorganize genind file 
 QUTO_garden_genind <- seppop(QUTO_genind)[[1]]
 levels(QUTO_garden_genind@pop) <- "Garden"
 
 QUTO_wild_genind <- repool(seppop(QUTO_genind)[2:19])
-levels(QUTO_wild_genind@pop) <- rep("Wild",18)
 
 #smash back together
 QUTO_garden_wild_genind <- repool(QUTO_garden_genind,
